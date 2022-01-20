@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: meupod
+spec:
+  containers:
+    - name: web
+      image: faraohh/rotten-potatoes:latest
+      ports:
+        - containerPort: 8080
+
+---
+#
+apiVersion: v1
+kind: Pod
+metadata:
+  name: meupod-label
+  labels:
+    app: web
+spec:
+  containers:
+    - name: web
+      image: faraohh/rotten-potatoes:latest
+      ports:
+        - containerPort: 8080
