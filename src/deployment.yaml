@@ -5,7 +5,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: mongo
+      app: mongodb
   template:
     metadata:
       labels:
@@ -21,7 +21,6 @@ spec:
               value: mongouser
             - name: MONGO_INITDB_ROOT_PASSWORD
               value: mongopwd
-            
 
 ---
 # Service do MongoDB
@@ -33,7 +32,7 @@ spec:
   selector:
     app: mongodb
   ports:
-  - port: 8080
+    - port: 27017
   type: ClusterIP
 
 ---
@@ -42,36 +41,36 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web
-spce: 
-  selector: 
-    mathLabels:
+spec:
+  selector:
+    matchLabels:
       app: web
-    template:
-      metadata:
-        labels:
-          app: web
-      spec:
-        containers:
-        - name: web
-          image: fabricioveronez/rotten-potatoes:v1
-          ports:
-          - containterPort: 5000
-          env:
-          - name: MONGODB_DB
-            value: admin
-          - name: MONGODB_HOST
-            value: mongodb
-          - name: MONGODB_PORT
-            value: "27017"
-          - name: MONGODB_USERNAME
-            value: mongouser
-          - name: MONGODB_PASSWORD
-            value: mongopwd
+  template:
+    metadata:
+      labels:
+        app: web
+    spec:
+      containers:
+      - name: web
+        image: fabricioveronez/rotten-potatoes:v1
+        ports:
+        - containerPort: 5000
+        env:
+        - name: MONGODB_DB
+          value: admin
+        - name: MONGODB_HOST
+          value: mongodb
+        - name: MONGODB_PORT
+          value: "27017"
+        - name: MONGODB_USERNAME
+          value: mongouser
+        - name: MONGODB_PASSWORD
+          value: mongopwd
 
 ---
-# 
+#
 apiVersion: v1
-king: Service
+kind: Service
 metadata:
   name: web
 spec:
