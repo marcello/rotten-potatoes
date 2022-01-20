@@ -24,7 +24,7 @@ spec:
             
 
 ---
-#
+# Service do MongoDB
 apiVersion: v1
 kind: Service
 metadata:
@@ -35,3 +35,27 @@ spec:
   ports:
   - port: 8080
   type: ClusterIP
+
+---
+# Deployment da Aplicacao
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web
+spce: 
+  selector: 
+    mathLabels:
+      app: web
+    template:
+      metadata:
+        labels:
+          app: web
+      spec:
+        containers:
+        -name: web
+          image: fabricioveronez/rotten-potatoes:v1
+          ports:
+          - containterPort: 5000
+          env:
+          - 
+
