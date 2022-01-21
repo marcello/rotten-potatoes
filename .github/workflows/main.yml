@@ -28,6 +28,7 @@ jobs:
             faraohh/rotten-potatoes:latest
             faraohh/rotten-potatoes:v${{ github.run_number }}
   CD:
+    needs: [CI]
     runs-on: ubuntu-lastet
     
     steps:
@@ -37,4 +38,4 @@ jobs:
         uses: Azure/k8s-set-context@v1.1
         with:
           method: kubeconfig
-          kubeconfig: ${{ secrets.k8s.KUBECONFIG }}
+          kubeconfig: ${{ secrets.K8S_CONFIG }}
